@@ -1,3 +1,13 @@
+/*----------------------------------------------------------------------
+    FILE        : TCPSocket.hpp
+    AUTHOR      : Samet ÖZGÜL, Tubitak
+    LAST UPDATE : 05.02.2024
+
+    Header file of TCPSocket class for socket operations
+
+    This file is responsible send and read data over sockets.
+    All Rights Free
+-----------------------------------------------------------------------*/
 #ifndef TCPSOCKET_HPP
 #define TCPSOCKET_HPP
 

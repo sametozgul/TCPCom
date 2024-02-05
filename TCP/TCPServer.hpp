@@ -1,3 +1,14 @@
+/*----------------------------------------------------------------------
+    FILE        : TCPServer.hpp
+    AUTHOR      : Samet ÖZGÜL, Tubitak
+    LAST UPDATE : 05.02.2024
+
+    Header file of TCPServer class for socket operations
+
+    This file is responsible create a socket on specific hostname and port.
+    All Rights Free
+-----------------------------------------------------------------------*/
+
 #ifndef TCPSERVER_HPP
 #define TCPSERVER_HPP
 

@@ -1,3 +1,13 @@
+/*----------------------------------------------------------------------
+    FILE        : File.hpp
+    AUTHOR      : Samet ÖZGÜL, Tubitak
+    LAST UPDATE : 05.02.2024
+
+    Header file of File class for file operations
+
+
+    All Rights Free
+-----------------------------------------------------------------------*/
 #ifndef FILE_HPP
 #define FILE_HPP
 
