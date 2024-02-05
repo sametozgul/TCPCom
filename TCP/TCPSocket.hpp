@@ -11,17 +11,22 @@
 #include <string.h>
 #include <iostream>
 #include <string>
+
+#include <vector>
 #define ISVALIDSOCKET(s) ((s) >= 0)
 #define CLOSESOCKET(s) close(s)
 #define SOCKET int
 #define GETSOCKETEXCEPTION() (errno)
+
+const unsigned int MAX_BUF_LENGTH = 4096;
+
 using namespace std;
 class TCPSocket
 {
 public:
     explicit TCPSocket(SOCKET socket);
-    void read();
-    void send_msg(string &msg);
+    string read();
+    void send_msg(const string &msg);
 private:
     SOCKET m_socket;
 

@@ -21,16 +21,19 @@ TCPServer::TCPServer(const char *hostName, const int &port):m_hostName{hostName}
     SOCKET server_socket = socket(server_addr->ai_family, server_addr->ai_socktype, server_addr->ai_protocol);
 
     if(!ISVALIDSOCKET(server_socket))
-        cout<<"The TCP socket was not created..."<<endl;
+        throw std::invalid_argument{"The TCP socket was not created..."};
 
     // server is binding
-    cout<<"TCP server is binding to: "<<server_addr->ai_addr<<endl;
+    cout<<"TCP server is trying to binding to: "<<server_addr->ai_addr<<endl;
     if(bind(server_socket,server_addr->ai_addr,server_addr->ai_addrlen)){
-        cout<<"The server cannot bind..."<<endl;
+        throw std::invalid_argument{"The server cannot bind...!..."};
     }
-    cout<<"TCP server is listening"<<endl;
+
     if(listen(server_socket,10) < 0){
-        cout<<"The server cannot listen..."<<endl;
+        throw std::invalid_argument{"The server cannot listen..."};
+    }else
+    {
+        cout<<"TCP server is listening"<<endl;
     }
 
     delete server_addr;
