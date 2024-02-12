@@ -18,8 +18,24 @@ string TCPSocket::read()
     return received_data;
 }
 
-void TCPSocket::send_msg(const string &msg)
+void TCPSocket::send_msg(const string &msg, SOCKET socket)
 {
-    send(m_socket, msg.c_str(), msg.length(), 0);
+    send(socket, msg.c_str(), msg.length(), 0);
     cout<<"message is sent...\n";
+    cout.flush();
+}
+
+bool TCPSocket::detect(int socket)
+{
+    char buffer[80];
+    if(recv(socket,buffer,sizeof(buffer),0)==0){
+        printf(" Connection closed\n");
+        return true;
+    }
+    return false;
+}
+
+int TCPSocket::getSocket()
+{
+    return m_socket;
 }

@@ -13,6 +13,7 @@
 
 #include <time.h>
 #include <sys/types.h>
+#include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
@@ -36,7 +37,9 @@ class TCPSocket
 public:
     explicit TCPSocket(SOCKET socket);
     string read();
-    void send_msg(const string &msg);
+    void send_msg(const string &msg, SOCKET socket);
+    bool detect(SOCKET socket);
+    SOCKET getSocket();
 private:
     SOCKET m_socket;
 

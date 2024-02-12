@@ -1,30 +1,36 @@
 #include <iostream>
 #include "TCP/TCPServer.hpp"
 #include "TCP/TCPSocket.hpp"
-#include "File/File.hpp"
 #include <iostream>
+#include <thread>
+#include <mutex>
+#include <poll.h>
 using namespace std;
-int main()
-{
-        TCPServer *tcp_server = new TCPServer("127.0.0.1",8080);
-        TCPSocket *tcp_socket = new TCPSocket(tcp_server->accept_socket());
+int MAX_CLIENTS = 10;
 
-        for(;;){
-
-            string file_address = tcp_socket->read();
-            try{
-                if(file_address.size() > 0){
-                    File *f = new File(file_address.c_str(),"r");
-                    vector<char> data(30);
-                    f->read(data);
-                    delete f;
-                    f = nullptr;
-                    tcp_socket->send_msg(string{}.append(data.begin(),data.end()));
-                }
-            }catch(...){
-                tcp_socket->send_msg(string{"The file format is invalid..."});
-            }
+void clientCreate(TCPSocket *socket){
+    for(;;)
+    {
+        if(socket->detect(socket->getSocket())){
+            break;
+        }else{
+            socket->send_msg("Hello from server \n",socket->getSocket());
         }
-    return 0;
+    }
+    cout<<socket->getSocket()<<"th client is done\n";
+    cout.flush();
 }
 
+int main()
+{
+    TCPServer *tcp_server = new TCPServer("127.0.0.1",8080);
+    vector<thread> thread_vector(2);
+    for(int i{0};i<2;++i){
+        TCPSocket *tcp_socket = new TCPSocket(tcp_server->accept_socket());
+        thread_vector[i] = thread(clientCreate,tcp_socket);
+    }
+    for (auto &t : thread_vector) {
+        t.join();
+    }
+    return 0;
+}
