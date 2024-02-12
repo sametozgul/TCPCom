@@ -35,10 +35,8 @@ TCPServer::TCPServer(const char *hostName, const int &port):m_hostName{hostName}
     {
         cout<<"TCP server is listening"<<endl;
     }
-
-    delete server_addr;
-
     m_serverSocket = server_socket;
+
 }
 
 int TCPServer::accept_socket()
