@@ -1,6 +1,6 @@
 #include "File.hpp"
 
-std::function<void(FILE *)> File::m_delete = [](auto f) {std::fclose(f);cout<<"File is closed..."<<endl;};
+std::function<void(FILE *)> File::m_delete = [](auto f) {std::fclose(f);cout<<"File is closed..."<<std::endl;};
 
 File::File()
 {

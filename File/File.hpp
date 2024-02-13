@@ -18,7 +18,13 @@
 #include <iostream>
 #include <functional>
 #include <memory>
-using namespace std;
+using std::cout;
+using std::string;
+using std::ostream;
+using std::istream;
+using std::vector;
+using std::function;
+
 class File
 {
 public:

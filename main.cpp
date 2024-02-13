@@ -3,12 +3,12 @@
 #include "TCP/TCPSocket.hpp"
 #include <iostream>
 #include <thread>
-#include <mutex>
-#include <poll.h>
-
-using namespace std;
+using std::cout;
 int MAX_CLIENTS = 10;
-vector<std::pair<thread,int>> client_p;
+using vector_p = vector<std::pair<thread,int>>;
+
+
+vector_p g_clientp;
 
 void clientCreate(TCPSocket *socket){
     for(;;)
@@ -16,7 +16,7 @@ void clientCreate(TCPSocket *socket){
         if(socket->detect(socket->getSocket())){
             break;
         }else{
-            for(const auto& el:client_p){
+            for(const auto& el:g_clientp){
                 if(el.second != socket->getSocket()) socket->send_msg(string{"The message is send from client"+ to_string(el.second) + " .\n"},el.second);
             }
         }
@@ -31,10 +31,10 @@ int main()
 
     for(int i{0};i<2;++i){
         TCPSocket *tcp_socket = new TCPSocket(tcp_server->accept_socket());
-        client_p.push_back(std::make_pair(thread(clientCreate,tcp_socket),tcp_socket->getSocket()));
+        g_clientp.push_back(std::make_pair(thread(clientCreate,tcp_socket),tcp_socket->getSocket()));
     }
     cout<<"Halooo\n";
-    for (auto &t : client_p) {
+    for (auto &t : g_clientp) {
         t.first.join();
     }
     return 0;
